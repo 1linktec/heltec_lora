@@ -1,0 +1,10 @@
+name: heltec_lora
+
+build:
+  src:
+    - heltec_lora.cpp
+  include:
+    - heltec_lora.h
+
+dependencies:
+  - Heltec_ESP32
