@@ -1,9 +1,10 @@
-external_components:
-  - name: heltec_lora        # the same folder name
-    version: "1.0.0"
-    platforms: [esp32]
-    requirements:
-      - Heltec_ESP32
-    files:
-      - heltec_lora.h
-      - heltec_lora.cpp
+name: heltec_lora
+platforms: [esp32]
+version: "1.0.0"
+
+libraries:
+  - Heltec_ESP32        # pulls the Heltec LoRa/Display Arduino lib
+
+files:
+  - heltec_lora.h
+  - heltec_lora.cpp
