@@ -1,7 +1,13 @@
-name: heltec_lora
-build:
-  src: [ heltec_lora.cpp ]
-  include: [ heltec_lora.h ]
+name: heltec_lora                  # must match folder name
+version: "1.0.0"
 
-dependencies:             # Arduino libs to pull
-  - Heltec_ESP32
+files:                             # files to compile
+  - heltec_lora.cpp
+  - heltec_lora.h
+
+includes:                          # headers to expose to other code
+  - heltec_lora.h
+
+dependencies:                      # Arduino/PIO libraries your .cpp needs
+  - Heltec_ESP32                   # radio driver
+  - esphome                        # <— makes esphome/core headers visible
