@@ -1,6 +1,5 @@
 // heltec_lora.cpp
 #include "heltec_lora.h"
-#include <LoRaWan-RAK4630.h>   // pulled in by SX126x-Arduino
 #include "esphome/core/log.h"
 
 namespace esphome {
