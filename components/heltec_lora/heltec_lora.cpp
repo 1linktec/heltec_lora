@@ -1,5 +1,6 @@
 #include "heltec_lora.h"
-#include <heltec.h>                 // HeltecAutomation/Heltec ESP32
+#include <heltec.h>
+#include "esphome/core/application.h"            //  <-- add
 #include "esphome/core/log.h"
 
 namespace esphome {
@@ -10,38 +11,31 @@ static const char *TAG = "heltec_lora";
 static mqtt::MQTTClientComponent *mqtt_{nullptr};
 HeltecLoRaComponent *HeltecLoRaComponent::global = nullptr;
 
-/* ──────────────────────────────────────────────────────────────
- *  ADD ONE GLOBAL INSTANCE so ESPHome will call setup()/loop()
- * ──────────────────────────────────────────────────────────────*/
-static HeltecLoRaComponent HELTEC_LORA_INSTANCE;   // ★ new line
+/* ───── Constructor: register with ESPHome ───── */
+HeltecLoRaComponent::HeltecLoRaComponent() {
+  App.register_component(this);                  // <-- KEY LINE
+}
 
-// ─── Component life-cycle ─────────────────────────────────────
+/* ───── global instance ───── */
+static HeltecLoRaComponent HELTEC_LORA_INSTANCE;   // keeps object alive
+
+/* ───── life-cycle ───── */
 void HeltecLoRaComponent::setup() {
   ESP_LOGI(TAG, "initialising SX1262 …");
-
-  // bool Display, bool LoRa, bool Serial, bool PABOOST, long Band
-  Heltec.begin(false,       /* OLED off   */
-               true,        /* LoRa on    */
-               true,        /* Serial on  */
-               true,        /* PA boost   */
-               915E6);      /* 915 MHz    */
-
+  Heltec.begin(false, true, true, true, 915E6);
   global = this;
 }
 
-// ─── LoRa TX helper (called from YAML lambdas) ────────────────
+/* ───── transmit helper ───── */
 void HeltecLoRaComponent::send_packet(const std::vector<uint8_t> &data) {
   ESP_LOGI(TAG, "TX → %.4s , %u B", data.data(), data.size());
-
   Heltec.LoRa.beginPacket();
   Heltec.LoRa.write(data.data(), data.size());
   Heltec.LoRa.endPacket();
 }
 
-// ─── simple C hooks so you don’t need C++ in YAML ─────────────
-void register_heltec_lora_component(mqtt::MQTTClientComponent *mqtt) {
-  mqtt_ = mqtt;
-}
+/* ───── C hooks ───── */
+void register_heltec_lora_component(mqtt::MQTTClientComponent *mqtt) { mqtt_ = mqtt; }
 
 void heltec_lora_send(const std::vector<uint8_t> &data) {
   if (HeltecLoRaComponent::global)
