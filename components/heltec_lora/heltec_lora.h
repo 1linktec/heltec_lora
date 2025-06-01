@@ -1,23 +1,22 @@
 #pragma once
-#include "esphome/core/component.h"
-#include "esphome/components/mqtt/mqtt_client.h"
+#include "esphome/core/component.h"          //  <-- add
 #include <vector>
 
 namespace esphome {
+namespace mqtt { class MQTTClientComponent; }
+
 namespace heltec_lora {
 
-class HeltecLoRaComponent : public Component {
+class HeltecLoRaComponent : public Component {   // derives from Component
  public:
-  void setup() override;
-  void loop() override {}
-
+  HeltecLoRaComponent();                         // ctor registers itself
+  void setup() override;                         // called by ESPHome
   void send_packet(const std::vector<uint8_t> &data);
 
-  // so your lambdas can reach the object
-  static HeltecLoRaComponent *global;
+  static HeltecLoRaComponent *global;            // ptr used by C helpers
 };
 
-/// helper wrappers used by your YAML lambdas
+/// C-helpers exposed to YAML lambdas
 void register_heltec_lora_component(mqtt::MQTTClientComponent *mqtt);
 void heltec_lora_send(const std::vector<uint8_t> &data);
 
