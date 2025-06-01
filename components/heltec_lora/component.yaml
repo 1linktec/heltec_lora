@@ -1,13 +1,16 @@
+# components/heltec_lora/component.yaml
 name: heltec_lora
 platforms: [esp32]
 version: "1.0.0"
 
 build:
-  src: [heltec_lora.cpp]
-  include: [heltec_lora.h]
+  src: [heltec_lora.cpp]   # C++ source for the component
+  include: [heltec_lora.h] # public header to expose to other files
 
+# ── external Arduino libraries ─────────────────────────────────────────
 libraries:
-  - "Heltec Automation Heltec ESP32"
+  - id: 6671              # Heltec ESP32 (official registry ID)
 
+# ── other ESPHome components this one relies on ───────────────────────
 dependencies:
-  - esphome
+  - esphome               # always include the core
