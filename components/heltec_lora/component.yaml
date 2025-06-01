@@ -1,15 +1,15 @@
 # components/heltec_lora/component.yaml
 name: heltec_lora
 platforms: [esp32]
-version: "1.0.1"
+version: "1.0.2"
 
 build:
-  src:    [heltec_lora.cpp]
+  src:     [heltec_lora.cpp]
   include: [heltec_lora.h]
 
-# Pull the official Heltec library directly from GitHub
+# ↓ ONE string, the GitHub HTTPS URL
 libraries:
-  - github: Heltec-Aaron-Lee/Heltec_ESP32   # contains heltec.h
+  - https://github.com/Heltec-Aaron-Lee/Heltec_ESP32
 
 dependencies:
   - esphome
