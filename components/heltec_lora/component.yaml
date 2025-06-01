@@ -1,6 +1,7 @@
 # components/heltec_lora/component.yaml
 name: heltec_lora
-platforms: [esp32]           # ← add this line
+platforms: [esp32]       # OK to keep; limits build to ESP32 targets
+required: true           # ← THIS forces the sources to be built
 version: "1.0.0"
 
 build:
@@ -8,5 +9,5 @@ build:
   include: [heltec_lora.h]
 
 dependencies:
-  - Heltec_ESP32
+  - Heltec_ESP32         # if you really need the Arduino Heltec lib
   - esphome
