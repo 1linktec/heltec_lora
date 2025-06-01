@@ -1,12 +1,12 @@
+# components/heltec_lora/component.yaml
 name: heltec_lora
+platforms: [esp32]           # ← add this line
 version: "1.0.0"
 
 build:
-  src:
-    - heltec_lora.cpp        # C++ file(s) to compile
-  include:
-    - heltec_lora.h          # header(s) to expose
+  src: [heltec_lora.cpp]
+  include: [heltec_lora.h]
 
 dependencies:
-  - Heltec_ESP32             # LoRa driver
-  - esphome                  # gives <esphome/...> headers
+  - Heltec_ESP32
+  - esphome
