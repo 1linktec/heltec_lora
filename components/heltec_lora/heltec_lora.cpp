@@ -1,4 +1,5 @@
 // heltec_lora.cpp
+#include <Heltec.h>              
 #include "heltec_lora.h"
 #include "esphome/core/log.h"
 
