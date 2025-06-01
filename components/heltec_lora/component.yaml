@@ -1,13 +1,12 @@
-# components/heltec_lora/component.yaml
 name: heltec_lora
-platforms: [esp32]       # OK to keep; limits build to ESP32 targets
-required: true           # ← THIS forces the sources to be built
-version: "1.0.0"
+platforms: [esp32]
+version: "0.1.0"
 
+# C++ build instructions
 build:
-  src: [heltec_lora.cpp]
-  include: [heltec_lora.h]
+  src: [ heltec_lora.cpp ]
+  include: [ heltec_lora.h ]
 
-dependencies:
-  - Heltec_ESP32         # if you really need the Arduino Heltec lib
-  - esphome
+# Pull the upstream Arduino library that actually drives the SX1262
+libraries:
+  - HeltecAutomation/Heltec ESP32          # same slug you’d use in platformio
